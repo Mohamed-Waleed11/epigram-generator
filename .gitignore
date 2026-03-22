@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Frontend ###
+/epigram-frontend/node_modules
