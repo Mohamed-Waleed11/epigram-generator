@@ -30,7 +30,7 @@ public class Epigram {
 
     private String text;
 
-    public String author;
+    private String author;
 
     public Epigram(String author, String text) {
         this.author = author;

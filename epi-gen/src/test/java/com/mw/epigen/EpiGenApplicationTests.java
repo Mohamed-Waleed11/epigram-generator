@@ -34,7 +34,7 @@ class EpiGenApplicationTests {
 
         epigramService.createEpigram(input);
 
-        List<Epigram> all = epigramService.findAll();
+        List<Epigram> all = epigramService.findAllUserGenerated();
 
         assertEquals(1, all.size());
         assertEquals("Test epigram", all.getFirst().getText());
@@ -45,9 +45,7 @@ class EpiGenApplicationTests {
     void createEpigram_shouldFail_whenInvalid() {
         EpigramInputDto input = new EpigramInputDto("", "");
 
-        assertThrows(RuntimeException.class, () -> {
-            epigramService.createEpigram(input);
-        });
+        assertThrows(RuntimeException.class, () -> epigramService.createEpigram(input));
 
         assertEquals(0, epigramRepository.findAll().size());
     }
@@ -57,7 +55,7 @@ class EpiGenApplicationTests {
         epigramRepository.save(new Epigram("A", "Text 1"));
         epigramRepository.save(new Epigram("B", "Text 2"));
 
-        List<Epigram> result = epigramService.findAll();
+        List<Epigram> result = epigramService.findAllUserGenerated();
 
         assertEquals(2, result.size());
     }
@@ -75,9 +73,7 @@ class EpiGenApplicationTests {
 
     @Test
     void likeEpigram_shouldThrow_whenNotFound() {
-        assertThrows(EpigramNotFoundException.class, () -> {
-            epigramService.likeEpigram(999L);
-        });
+        assertThrows(EpigramNotFoundException.class, () -> epigramService.likeEpigram(999L));
     }
 
     @Test
@@ -102,9 +98,7 @@ class EpiGenApplicationTests {
 
     @Test
     void deleteEpigram_shouldThrow_whenNotFound() {
-        assertThrows(EpigramNotFoundException.class, () -> {
-            epigramService.deleteEpigram(999L);
-        });
+        assertThrows(EpigramNotFoundException.class, () -> epigramService.deleteEpigram(999L));
     }
 
 

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface EpigramRepository extends JpaRepository<Epigram, Long> {
 
@@ -20,5 +22,8 @@ public interface EpigramRepository extends JpaRepository<Epigram, Long> {
     @Modifying(clearAutomatically = true)
     @Query("DELETE FROM Epigram e WHERE e.id = :id")
     int deleteEpigram(@Param("id") long id);
+
+    @Query("SELECT e FROM Epigram e WHERE e.author <> :author")
+    List<Epigram> findAllByAuthor(@Param("author") String author);
 
 }

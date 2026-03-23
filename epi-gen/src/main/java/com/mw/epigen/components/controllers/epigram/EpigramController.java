@@ -1,10 +1,8 @@
 package com.mw.epigen.components.controllers.epigram;
 
 import com.mw.epigen.components.entities.epigram.Epigram;
-import com.mw.epigen.components.entities.epigram.EpigramRepository;
 import com.mw.epigen.components.services.epigram.EpigramService;
 import com.mw.epigen.representations.EpigramInputDto;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +20,17 @@ public class EpigramController {
 
     @GetMapping
     public List<Epigram> getAllEpigrams() {
-        return epigramService.findAll();
+        return epigramService.findAllUserGenerated();
+    }
+
+    @PostMapping("/generate")
+    public Epigram generateEpigram() {
+        return epigramService.generateEpigram();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createEpigram(@RequestBody EpigramInputDto input) {
-        epigramService.createEpigram(input);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public Epigram createEpigram(@RequestBody EpigramInputDto input) {
+        return epigramService.createEpigram(input);
     }
 
     @PostMapping("/{id}/like")
